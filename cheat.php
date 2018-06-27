@@ -207,7 +207,7 @@ do
 
 	if( $Data[ 'eresult' ] == 93 )
 	{
-		$LagAdjustedWaitTime = max( 10, ceil( $SkippedLagTime + 0.3 ) );
+		$LagAdjustedWaitTime = min( 10, ceil( $SkippedLagTime + 0.3 ) );
 
 		Msg( '{lightred}-- Time is out of sync, trying again in ' . $LagAdjustedWaitTime . ' seconds...' );
 
@@ -751,6 +751,8 @@ function ExecuteRequest( $Method, $URL, $Data = [] )
 			}
 			else if( $EResult === 10 )
 			{
+				$Data = '{}'; // Retry this exact request
+
 				Msg( '{lightred}-- EResult 10 means Steam is busy' );
 
 				sleep( 3 );
